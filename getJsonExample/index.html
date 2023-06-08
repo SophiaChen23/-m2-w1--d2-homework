@@ -1,0 +1,56 @@
+<html>
+   <head>
+      <title>Westcliff Fullstack Bootcamp jQuery Ajax Example</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+         $(document).ready(function() {
+            $("#btn").click(function(event){
+
+               // Remove any existing table
+               $("#showinfo").empty();
+
+               // Create a new table element
+               var table = $('<table></table>');
+
+               // Load data from json file
+               $.getJSON('jq/result.json', function(jqdata) {
+                  // Create rows for each attribute
+                  Object.keys(jqdata).forEach(function(key) {
+                     var row = $('<tr></tr>');
+                     row.append( key.toUpperCase()   +  ': ');
+                     row.append( jqdata[key] );
+                     table.append(row);
+                  });
+
+                  // Append the table to the "showinfo" div
+                  $("#showinfo").append(table);
+               });
+            });
+         });
+      </script>
+      <style>
+         #showinfo {
+            background-color:#eee;
+         }
+         table {
+            border-collapse: collapse;
+            width: 100%;
+         }
+         td {
+            /*border: 1px solid black;*/
+            /*padding: 8px;*/
+            /*text-align: left;*/
+         }
+      </style>
+   </head>
+
+   <body>
+      <!--<div id = "showinfo"></div>-->
+
+		<p>Click button to load result.json file</p>
+      <input type = "button" id = "btn" value = "Load Data" /><tr>
+      <br><br>
+      <div id="showinfo"></div>
+   </body>
+</html>
+
